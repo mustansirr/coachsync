@@ -5,6 +5,15 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Activity } from "lucide-react"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 export default function SignUpPage() {
   return (
@@ -27,7 +36,7 @@ export default function SignUpPage() {
               <div className="space-y-2 text-center md:text-left">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Create Your Account</h1>
                 <p className="text-muted-foreground md:text-lg">
-                  Join thousands of coaches optimizing performance with data-driven insights.
+                    Join thousands of sports professionals optimizing performance with data-driven insights.
                 </p>
               </div>
 
@@ -45,7 +54,29 @@ export default function SignUpPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="coach@example.com" required />
+                  <Input id="email" type="email" placeholder="you@example.com" required />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="role">Your Role</Label>
+                  <Select required>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Roles</SelectLabel>
+                        <SelectItem value="coach">Coach</SelectItem>
+                        <SelectItem value="athlete">Athlete</SelectItem>
+                        <SelectItem value="physiotherapist">Physiotherapist</SelectItem>
+                        <SelectItem value="nutritionist">Nutritionist</SelectItem>
+                        <SelectItem value="other">Other Sports Professional</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    This helps us customize your experience on the platform.
+                  </p>
                 </div>
 
                 <div className="space-y-2">
@@ -100,14 +131,14 @@ export default function SignUpPage() {
                   src="/placeholder.svg?height=400&width=400"
                   width={400}
                   height={400}
-                  alt="Coach analyzing data"
+                  alt="Sports professionals collaborating"
                   className="mx-auto rounded-lg object-cover"
                 />
                 <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Data-Driven Coaching</h3>
+                  <h3 className="text-xl font-bold">Tailored for Your Role</h3>
                   <p className="text-muted-foreground">
-                    Integrate wearables, health data, and specialist insights to optimize performance and prevent
-                    injuries.
+                  Whether you're a coach, athlete, physiotherapist, or nutritionist, CoachSync provides specialized
+                  tools for your specific needs.
                   </p>
                 </div>
               </div>
