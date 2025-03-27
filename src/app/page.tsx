@@ -28,10 +28,14 @@ export default function LandingPage() {
             </Link>
           </nav>
           <div className="flex items-center gap-4">
+            <Link href="/sign-in">
             <Button variant="outline" size="sm" className="hidden md:flex">
               Log In
             </Button>
-            <Button size="sm">Get Started</Button>
+            </Link>
+            <Link href="/sign-up">
+              <Button size="sm">Get Started</Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -52,9 +56,11 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Link href="/sign-up">
                   <Button size="lg" className="px-8">
                     Start Free Trial
                   </Button>
+                  </Link>
                   <Button variant="outline" size="lg" className="px-8">
                     Book a Demo
                   </Button>
@@ -384,9 +390,11 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="mx-auto flex flex-col gap-4 min-[400px]:flex-row justify-center">
+              <Link href="/sign-up">
               <Button size="lg" variant="secondary" className="px-8">
                 Start Free Trial
               </Button>
+              </Link>
               <Button
                 size="lg"
                 variant="outline"
