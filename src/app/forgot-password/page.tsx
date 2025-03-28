@@ -9,7 +9,7 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-screen flex-col">
       {/* Header */}
       <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center">
+        <div className="container mx-auto flex h-16 items-center">
           <Link href="/" className="flex items-center gap-2">
             <Activity className="h-6 w-6 text-primary" />
             <span className="text-xl font-bold">CoachSync</span>
@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
       </header>
 
       <main className="flex-1">
-        <div className="container flex items-center justify-center py-10 md:py-20">
+        <div className="container mx-auto flex items-center justify-center py-10 md:py-20">
           <div className="mx-auto w-full max-w-md space-y-6">
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-bold tracking-tighter">Reset Your Password</h1>
@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
 
       {/* Footer */}
       <footer className="w-full border-t bg-background py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <div className="flex items-center gap-2">
             <Activity className="h-6 w-6 text-primary" />
             <span className="text-lg font-bold">CoachSync</span>

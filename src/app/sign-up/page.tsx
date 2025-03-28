@@ -20,7 +20,7 @@ export default function SignUpPage() {
     <div className="flex min-h-screen flex-col">
       {/* Header */}
       <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center">
+        <div className="container mx-auto flex h-16 items-center">
           <Link href="/" className="flex items-center gap-2">
             <Activity className="h-6 w-6 text-primary" />
             <span className="text-xl font-bold">CoachSync</span>
@@ -29,7 +29,7 @@ export default function SignUpPage() {
       </header>
 
       <main className="flex-1">
-        <div className="container flex items-center justify-center md:py-10">
+        <div className="container mx-auto flex items-center justify-center md:py-10">
           <div className="grid w-full gap-6 md:grid-cols-2 lg:gap-12">
             {/* Left side - Form */}
             <div className="flex flex-col justify-center space-y-6">
@@ -149,7 +149,7 @@ export default function SignUpPage() {
 
       {/* Footer */}
       <footer className="w-full border-t bg-background py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <div className="flex items-center gap-2">
             <Activity className="h-6 w-6 text-primary" />
             <span className="text-lg font-bold">CoachSync</span>
