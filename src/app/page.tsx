@@ -1,5 +1,8 @@
 import Link from "next/link"
 import Image from "next/image"
+import dashboardImage from "@/images/dashboard.svg";
+import landingPageImage from "@/images/landing-page.svg";
+import avatarImage from "@/images/avatar.svg";
 import { Button } from "@/components/ui/button"
 import { Activity, BarChart3, Clock, Database, LineChart, MessageSquare, Shield, Users } from "lucide-react"
 
@@ -67,7 +70,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <Image
-                src="/hero-image.png"
+                src={landingPageImage}
                 width={600}
                 height={600}
                 alt="CoachSync Dashboard"
@@ -224,11 +227,11 @@ export default function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
               <Image
-                src="/placeholder.svg?height=550&width=550"
-                width={550}
-                height={310}
+                src={dashboardImage}
+                width={50}
+                height={100}
                 alt="CoachSync Dashboard"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+                className="mx-auto overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
               />
               <div className="flex flex-col justify-center space-y-4">
                 <ul className="grid gap-6">
@@ -300,7 +303,7 @@ export default function LandingPage() {
               <div className="rounded-lg border p-6 shadow-sm">
                 <div className="flex items-start gap-4">
                   <Image
-                    src="/placeholder.svg?height=100&width=100"
+                    src={avatarImage}
                     width={60}
                     height={60}
                     alt="Coach portrait"
@@ -319,7 +322,7 @@ export default function LandingPage() {
               <div className="rounded-lg border p-6 shadow-sm">
                 <div className="flex items-start gap-4">
                   <Image
-                    src="/placeholder.svg?height=100&width=100"
+                    src={avatarImage}
                     width={60}
                     height={60}
                     alt="Coach portrait"
@@ -339,7 +342,7 @@ export default function LandingPage() {
               <div className="rounded-lg border p-6 shadow-sm">
                 <div className="flex items-start gap-4">
                   <Image
-                    src="/placeholder.svg?height=100&width=100"
+                    src={avatarImage}
                     width={60}
                     height={60}
                     alt="Coach portrait"
@@ -358,7 +361,7 @@ export default function LandingPage() {
               <div className="rounded-lg border p-6 shadow-sm">
                 <div className="flex items-start gap-4">
                   <Image
-                    src="/placeholder.svg?height=100&width=100"
+                    src={avatarImage}
                     width={60}
                     height={60}
                     alt="Coach portrait"
