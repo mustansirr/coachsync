@@ -19,6 +19,7 @@ The MVP focuses on coaches as the primary users, with athletes joining teams via
 - **Wearable Integration**: [Fitbit Web API](https://dev.fitbit.com/build/reference/web-api/)
 - **Deployment**: [Vercel](https://vercel.com/) (frontend), Supabase (backend)
 - **Charting**: [Chart.js](https://www.chartjs.org/) or [Recharts](https://recharts.org/) for data visualization
+- **Validation**: [Zod](https://zod.dev/) for schema-based client/server validation
 
 ## ✅ MVP Features
 1. **Team Management**
@@ -27,6 +28,7 @@ The MVP focuses on coaches as the primary users, with athletes joining teams via
 
 2. **Authentication**
    - Simple email and password-based signup (via Supabase Auth)
+   - Centralized validation using Zod for both client and server
 
 3. **Fitbit Integration**
    - Athletes can connect their Fitbit to sync basic health metrics (steps, heart rate, etc.)
@@ -41,7 +43,7 @@ The MVP focuses on coaches as the primary users, with athletes joining teams via
 ```bash
 /pages          # Next.js pages (routes)
 /components     # Shared React components
-/lib            # Utility functions (e.g. API helpers, Fitbit logic)
+/lib            # Utility functions (e.g. API helpers, Fitbit logic, Zod schemas)
 /styles         # Tailwind and global CSS
 /supabase       # Supabase-related setup
 /public         # Static assets
@@ -53,7 +55,7 @@ The MVP focuses on coaches as the primary users, with athletes joining teams via
 npm install
 
 # Run the dev server
-npm install
+npm run dev
 ```
 
 You must configure Supabase project keys and Fitbit API credentials to enable full functionality. See `.env.example` for required keys.
@@ -70,6 +72,7 @@ This project is being built by a 3-person team, each contributing across backend
 ## 📌 Notes
 - MVP is developed following Lean Startup principles and MoSCoW prioritization
 - Initial Fitbit integration will use basic health metrics and expand over time
+- Zod is used for all authentication-related validation (see `/lib/validations/auth.ts`)
 
 ---
 

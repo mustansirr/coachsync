@@ -10,15 +10,26 @@ import { Activity } from "lucide-react"
 import { supabase } from "@/lib/supabaseClient"
 import { useState } from "react"
 import { useRouter } from "next/navigation";
+import { signInSchema } from "@/lib/validations/auth";
+import FormError from "@/components/FormError";
 
 export default function SignInPage() {
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError(null);
     const formData = new FormData(e.target as HTMLFormElement);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
+    // Zod validation
+    const parsed = signInSchema.safeParse({ email, password });
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
+      return;
+    }
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -26,10 +37,9 @@ export default function SignInPage() {
     });
 
     if (error) {
-      console.error("Error signing in:", error.message);
+      setError(error.message);
     } else {
-      console.log("Signed in successfully:", data);
-      router.push("/dashboard"); // Redirect to dashboard after successful sign-in
+      router.push("/dashboard");
     }
   }
 
@@ -81,6 +91,7 @@ export default function SignInPage() {
             <Button type="submit" className="w-full">
               Sign In
             </Button>
+            <FormError message={error} />
           </form>
           <div className="text-center text-sm">
             <p className="text-muted-foreground">
