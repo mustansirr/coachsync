@@ -3,18 +3,21 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Activity, User } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Activity, User, LoaderCircle, AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
+import { TeamCard } from "@/components/TeamCard";
+import { TeamModal } from "@/components/TeamModal";
 
 export default function DashboardPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [teams, setTeams] = useState<{ id: string; name: string }[]>([]);
-  const [newTeamName, setNewTeamName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalError, setModalError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -57,18 +60,20 @@ export default function DashboardPage() {
     }
   };
 
-  const handleAddTeam = async () => {
-    if (!newTeamName.trim() || !userId) return;
-    setError(null);
+  const handleAddTeam = async (name: string) => {
+    if (!name.trim() || !userId) return;
+    setModalLoading(true);
+    setModalError(null);
     const { data, error } = await supabase
       .from("teams")
-      .insert([{ name: newTeamName.trim(), user_id: userId }])
+      .insert([{ name: name.trim(), user_id: userId }])
       .select();
+    setModalLoading(false);
     if (error) {
-      setError("Failed to add team");
+      setModalError("Failed to add team");
     } else if (data && data[0]) {
       setTeams((prev) => [{ id: data[0].id, name: data[0].name }, ...prev]);
-      setNewTeamName("");
+      setModalOpen(false);
     }
   };
 
@@ -85,6 +90,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
+        <LoaderCircle className="animate-spin h-6 w-6 text-muted-foreground mr-2" />
         <span className="text-muted-foreground">Loading...</span>
       </div>
     );
@@ -124,44 +130,30 @@ export default function DashboardPage() {
       <main className="flex-1 container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold mb-6">Your Teams</h1>
         {error && (
-          <div className="mb-4 rounded-md bg-destructive/10 px-4 py-2 text-destructive border border-destructive/20">
+          <div className="mb-4 flex items-center gap-2 rounded-md bg-destructive/10 px-4 py-2 text-destructive border border-destructive/20">
+            <AlertTriangle className="h-5 w-5 mr-2" />
             {error}
           </div>
         )}
+        <div className="flex items-center mb-4">
+          <Button onClick={() => setModalOpen(true)} className="ml-auto">
+            <Plus className="mr-2 h-4 w-4" /> Create Team
+          </Button>
+        </div>
+        <TeamModal
+          open={modalOpen}
+          onClose={() => {
+            setModalOpen(false);
+            setModalError(null);
+          }}
+          onSubmit={handleAddTeam}
+          loading={modalLoading}
+          error={modalError}
+        />
         <div className="space-y-4">
           {teams.map((team) => (
-            <div
-              key={team.id}
-              className="flex items-center justify-between p-4 border rounded-md shadow-sm bg-card"
-            >
-              <span>{team.name}</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-red-500 hover:underline"
-                onClick={() => handleDeleteTeam(team.id)}
-              >
-                Delete
-              </Button>
-            </div>
+            <TeamCard key={team.id} team={team} />
           ))}
-
-          <form
-            className="flex items-center gap-4"
-            onSubmit={e => {
-              e.preventDefault();
-              handleAddTeam();
-            }}
-          >
-            <Input
-              type="text"
-              placeholder="Enter team name"
-              value={newTeamName}
-              onChange={(e) => setNewTeamName(e.target.value)}
-              className="max-w-xs"
-            />
-            <Button type="submit">Add Team</Button>
-          </form>
         </div>
       </main>
     </div>
