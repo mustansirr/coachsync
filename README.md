@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CoachSync
 
-## Getting Started
+**CoachSync** is a web-based platform that helps coaches manage their teams and monitor athlete performance by integrating wearable data, team communication, and streamlined team organization tools.
 
-First, run the development server:
+## 🚀 Goal
+The main goal of CoachSync is to provide coaches with a centralized dashboard where they can:
+- Create and manage multiple athlete teams
+- Invite athletes to join their teams with a simple email signup
+- View athlete health and activity data by integrating wearable devices (starting with Fitbit)
+- Send team-wide announcements via a one-way chat
+- View consolidated performance data in a team dashboard
 
+The MVP focuses on coaches as the primary users, with athletes joining teams via invite links and connecting their wearable devices.
+
+## 🛠️ Tech Stack
+- **Frontend**: [Next.js](https://nextjs.org/) (React-based framework)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/)
+- **Authentication & Backend**: [Supabase](https://supabase.com/) (PostgreSQL, Auth, Realtime)
+- **Wearable Integration**: [Fitbit Web API](https://dev.fitbit.com/build/reference/web-api/)
+- **Deployment**: [Vercel](https://vercel.com/) (frontend), Supabase (backend)
+- **Charting**: [Chart.js](https://www.chartjs.org/) or [Recharts](https://recharts.org/) for data visualization
+
+## ✅ MVP Features
+1. **Team Management**
+   - Coaches can create and delete teams
+   - Athletes can join via invite links
+
+2. **Authentication**
+   - Simple email and password-based signup (via Supabase Auth)
+
+3. **Fitbit Integration**
+   - Athletes can connect their Fitbit to sync basic health metrics (steps, heart rate, etc.)
+
+4. **Team Dashboard**
+   - Coaches can view consolidated data of their team members
+
+5. **Broadcast Chat**
+   - Coaches can send one-way messages to their teams (announcement feed)
+
+## 📦 Folder Structure (Planned)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+/pages          # Next.js pages (routes)
+/components     # Shared React components
+/lib            # Utility functions (e.g. API helpers, Fitbit logic)
+/styles         # Tailwind and global CSS
+/supabase       # Supabase-related setup
+/public         # Static assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💻 Local Setup
+```bash
+# Install dependencies
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Run the dev server
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You must configure Supabase project keys and Fitbit API credentials to enable full functionality. See `.env.example` for required keys.
 
-## Learn More
+## 👥 Team Roles
+This project is being built by a 3-person team, each contributing across backend, frontend, and design. Roles are shared and rotated weekly.
 
-To learn more about Next.js, take a look at the following resources:
+## 📈 Upcoming Features
+- Athlete wearable data sync (via Fitbit API)
+- Coach notifications and updates feed
+- Team-level data visualization (steps, HR, trends)
+- Invite system for athletes (via secure link/token)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📌 Notes
+- MVP is developed following Lean Startup principles and MoSCoW prioritization
+- Initial Fitbit integration will use basic health metrics and expand over time
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> For questions, feature requests, or feedback, please contact the CoachSync team.
