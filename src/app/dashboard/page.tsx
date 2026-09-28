@@ -1,100 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Activity, User, LoaderCircle, AlertTriangle, Plus } from "lucide-react";
+import { Activity, User, AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabaseClient";
 import { TeamCard } from "@/components/TeamCard";
 import { TeamModal } from "@/components/TeamModal";
 
 export default function DashboardPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [teams, setTeams] = useState<{ id: string; name: string }[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const checkAuthAndFetchTeams = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/sign-in");
-      } else {
-        setUserId(session.user.id);
-        await fetchTeams(session.user.id);
-        setLoading(false);
-      }
-    };
-    checkAuthAndFetchTeams();
-    // eslint-disable-next-line
-  }, [router]);
-
-  const fetchTeams = async (uid: string) => {
-    setError(null);
-    const { data, error } = await supabase
-      .from("teams")
-      .select("id, name")
-      .eq("user_id", uid)
-      .order("created_at", { ascending: false });
-    if (error) {
-      setError("Failed to load teams");
-    } else {
-      setTeams(data || []);
-    }
-  };
-
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Error signing out:", error.message);
-    } else {
-      window.location.href = "/sign-in";
-    }
+    // TODO: Clear auth state / cookies / session
+    router.push("/sign-in");
   };
 
   const handleAddTeam = async (name: string) => {
-    if (!name.trim() || !userId) return;
+    if (!name.trim()) return;
     setModalLoading(true);
     setModalError(null);
-    const { data, error } = await supabase
-      .from("teams")
-      .insert([{ name: name.trim(), user_id: userId }])
-      .select();
+    // TODO: Replace with custom API call to create team in database
+    const newTeam = { id: Date.now().toString(), name: name.trim() };
+    setTeams((prev) => [newTeam, ...prev]);
     setModalLoading(false);
-    if (error) {
-      setModalError("Failed to add team");
-    } else if (data && data[0]) {
-      setTeams((prev) => [{ id: data[0].id, name: data[0].name }, ...prev]);
-      setModalOpen(false);
-    }
+    setModalOpen(false);
   };
-
-  const handleDeleteTeam = async (teamId: string) => {
-    setError(null);
-    const { error } = await supabase.from("teams").delete().eq("id", teamId);
-    if (error) {
-      setError("Failed to delete team");
-    } else {
-      setTeams((prev) => prev.filter((team) => team.id !== teamId));
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoaderCircle className="animate-spin h-6 w-6 text-muted-foreground mr-2" />
-        <span className="text-muted-foreground">Loading...</span>
-      </div>
-    );
-  }
 
   return (
     <div className="flex min-h-screen flex-col">
