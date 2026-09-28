@@ -60,9 +60,6 @@ npm run dev
 
 You must configure Supabase project keys and Fitbit API credentials to enable full functionality. See `.env.example` for required keys.
 
-## 👥 Team Roles
-This project is being built by a 3-person team, each contributing across backend, frontend, and design. Roles are shared and rotated weekly.
-
 ## 📈 Upcoming Features
 - Athlete wearable data sync (via Fitbit API)
 - Coach notifications and updates feed
@@ -76,4 +73,3 @@ This project is being built by a 3-person team, each contributing across backend
 
 ---
 
-> For questions, feature requests, or feedback, please contact the CoachSync team.
