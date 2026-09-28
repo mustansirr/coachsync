@@ -4,52 +4,28 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabaseClient";
-import { ChevronLeft, Trash, Pencil, LoaderCircle, AlertTriangle } from "lucide-react";
+import { ChevronLeft, Trash, Pencil, AlertTriangle } from "lucide-react";
 
 export default function TeamDetailPage() {
   const router = useRouter();
   const params = useParams();
   const teamId = params?.id as string;
-  const [team, setTeam] = useState<{ id: string; name: string } | null>(null);
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [team, setTeam] = useState<{ id: string; name: string } | null>({
+    id: teamId || "1",
+    name: "Sample Team",
+  });
+  const [name, setName] = useState("Sample Team");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  useEffect(() => {
-    const fetchTeam = async () => {
-      setLoading(true);
-      setError(null);
-      const { data, error } = await supabase
-        .from("teams")
-        .select("id, name")
-        .eq("id", teamId)
-        .single();
-      if (error) {
-        setError("Failed to load team");
-      } else {
-        setTeam(data);
-        setName(data.name);
-      }
-      setLoading(false);
-    };
-    if (teamId) fetchTeam();
-  }, [teamId]);
-
   const handleSave = async () => {
     if (!name.trim()) return;
     setSaving(true);
     setError(null);
-    const { error } = await supabase
-      .from("teams")
-      .update({ name: name.trim() })
-      .eq("id", teamId);
-    if (error) {
-      setError("Failed to update team");
-    } else if (team) {
+    // TODO: Replace with custom API update logic
+    if (team) {
       setTeam({ ...team, name: name.trim() });
     }
     setSaving(false);
@@ -58,23 +34,10 @@ export default function TeamDetailPage() {
   const handleDelete = async () => {
     setDeleting(true);
     setError(null);
-    const { error } = await supabase.from("teams").delete().eq("id", teamId);
-    if (error) {
-      setError("Failed to delete team");
-    } else {
-      router.push("/dashboard");
-    }
+    // TODO: Replace with custom API delete logic
+    router.push("/dashboard");
     setDeleting(false);
   };
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoaderCircle className="animate-spin h-6 w-6 text-muted-foreground mr-2" />
-        <span className="text-muted-foreground">Loading...</span>
-      </div>
-    );
-  }
 
   if (!team) {
     return (

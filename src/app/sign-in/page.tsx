@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Activity } from "lucide-react"
-import { supabase } from "@/lib/supabaseClient"
 import { useState } from "react"
 import { useRouter } from "next/navigation";
 import { signInSchema } from "@/lib/validations/auth";
@@ -31,16 +30,9 @@ export default function SignInPage() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-    } else {
-      router.push("/dashboard");
-    }
+    // TODO: Implement custom backend authentication (e.g. Next.js API Route / Node.js + PostgreSQL)
+    console.log("Sign in form submitted:", { email, password });
+    router.push("/dashboard");
   }
 
   return (

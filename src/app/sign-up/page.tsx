@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Activity } from "lucide-react";
-import { supabase } from "@/lib/supabaseClient";
 import { signUpSchema } from "@/lib/validations/auth";
 import FormError from "@/components/FormError";
 
@@ -35,20 +34,8 @@ export default function SignUpPage() {
       return;
     }
 
-    const { email, password } = formData;
-    try {
-      // Sign up the user
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (error) throw error;
-      console.log("User signed up:", data);
-      alert("Sign-up successful! Please check your email for verification.");
-      window.location.href = "/dashboard";
-    } catch (err) {
-      setError((err as Error).message || "An error occurred during sign-up.");
-    }
+    // TODO: Implement custom backend authentication (e.g. Next.js API Route / Node.js + PostgreSQL)
+    console.log("Sign up form submitted:", formData);
   };
 
   return (
