@@ -7,6 +7,7 @@ import { Activity, User, AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TeamCard } from "@/components/TeamCard";
 import { TeamModal } from "@/components/TeamModal";
+import { createClient } from "@/lib/supabase/client";
 
 export default function DashboardPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,9 +17,10 @@ export default function DashboardPage() {
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
   const router = useRouter();
+  const supabase = createClient();
 
   const handleSignOut = async () => {
-    // TODO: Clear auth state / cookies / session
+    const { error } = await supabase.auth.signOut({ scope: 'local' })
     router.push("/sign-in");
   };
 

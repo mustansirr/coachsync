@@ -11,9 +11,11 @@ import { useState } from "react"
 import { useRouter } from "next/navigation";
 import { signInSchema } from "@/lib/validations/auth";
 import FormError from "@/components/FormError";
+import { createClient } from "@/lib/supabase/client"
 
 export default function SignInPage() {
   const router = useRouter();
+  const supabase = createClient();
   const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -30,9 +32,19 @@ export default function SignInPage() {
       return;
     }
 
-    // TODO: Implement custom backend authentication (e.g. Next.js API Route / Node.js + PostgreSQL)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if(error) {
+      setError(error.message);
+      return;
+    }
+
+    router.push('/dashboard');
+    router.refresh();
     console.log("Sign in form submitted:", { email, password });
-    router.push("/dashboard");
   }
 
   return (
